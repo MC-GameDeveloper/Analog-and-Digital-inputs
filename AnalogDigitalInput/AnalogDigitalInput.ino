@@ -1,6 +1,7 @@
 
-int sensorPin = A0;
-int digitalButton = 3;
+int sensorPinX = A0;
+int sensorPinY = A1;
+int digitalButton = 2;
 int led = 9;
 int brightness = 0;
 int buttonStage = 0;
@@ -8,15 +9,18 @@ int buttonStage = 0;
 void setup() {
   Serial.begin(9600);
   pinMode(led, OUTPUT);
-  pinMode(sensorPin,INPUT);
+  pinMode(sensorPinX,INPUT);
+  pinMode(sensorPinY,INPUT);
   pinMode(digitalButton, INPUT);
+  digitalWrite(digitalButton, HIGH);
+  
 }
 
 void loop() {
   buttonStage = digitalRead(digitalButton);
-  int sensorValue = analogRead(sensorPin);
+  int sensorValue = analogRead(sensorPinX);
   
-  if(buttonStage == HIGH){
+  if(buttonStage == LOW){
     digitalWrite(led,HIGH);
     brightness = map(sensorValue, 0, 1023, 0, 255);
     analogWrite(led, brightness);
